@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title th:text="${pageTitle} != null ? ${pageTitle} : 'Painel Admin - Thymeleaf + React'">Painel Administrativo - Thymeleaf + React</title>
+  
+  <!-- Fontes Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos compilados do React + Tailwind via Spring Boot Static -->
+  <link rel="stylesheet" th:href="@{/dist/assets/index.css}" href="/dist/assets/index.css" />
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #12101b;
+      margin: 0;
+      padding: 0;
+      color: #e4e4e7;
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- ============================================================== -->
+  <!-- INJEÇÃO DE DADOS DO MODELO THYMELEAF PARA O REACT (HYBRID SSR) -->
+  <!-- ============================================================== -->
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    window.__THYMELEAF_DATA__ = {
+      appName: /*[[${appName}]]*/ 'Investir Mais',
+      pageTitle: /*[[${pageTitle}]]*/ 'Painel Administrativo',
+      targetPage: /*[[${targetPage}]]*/ 'AdminPage',
+      serverTime: /*[[${serverTime}]]*/ '',
+      serverEngine: /*[[${serverEngine}]]*/ 'Thymeleaf 3 + Spring Boot',
+      serverMessage: /*[[${serverMessage}]]*/ 'Template admin.html carregado via Thymeleaf',
+      roleRequired: /*[[${roleRequired}]]*/ 'ADMIN',
+      authenticatedUser: /*[[${authenticatedUser}]]*/ null,
+      authorities: /*[[${authorities}]]*/ 'ANONYMOUS'
+    };
+    /*]]>*/
+  </script>
+
+  <!-- ============================================================== -->
+  <!-- ELEMENTO RAIZ ONDE O REACT É ACOPLADO EM CIMA DO THYMELEAF    -->
+  <!-- ============================================================== -->
+  <div id="root">
+    <!-- Conteúdo fallback renderizado pelo Thymeleaf antes do React montar -->
+    <div style="min-height: calc(100vh - 45px); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1rem; color: #a1a1aa;">
+      <div style="width: 40px; height: 40px; border: 3px solid rgba(251, 191, 36, 0.2); border-top-color: #f59e0b; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+      <p style="font-size: 0.95rem;">Inicializando componentes React em cima do Thymeleaf...</p>
+    </div>
+  </div>
+
+  <noscript>
+    <div style="margin: 2rem auto; max-width: 600px; padding: 1.5rem; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 1rem; color: #f87171; text-align: center;">
+      <h3>JavaScript Necessário</h3>
+      <p>Esta aplicação híbrida utiliza React acoplado ao Thymeleaf. Por favor, habilite o JavaScript em seu navegador.</p>
+    </div>
+  </noscript>
+
+  <style>
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+
+  <!-- Scripts do React empacotado -->
+  <script type="module" th:src="@{/dist/assets/index.js}" src="/dist/assets/index.js"></script>
+</body>
+</html>
